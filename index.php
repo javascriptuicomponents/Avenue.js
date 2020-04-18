@@ -7,10 +7,10 @@
 	<script src="TableUIJs/table.js"></script>
 </head>
 <body>
-<div id="table"></div>
+<div id="divid"></div>
 <script>
 	//json type
-	const obj = [
+	var obj = [
 		{ 
 			fieldname: 'accountid', 
 			fieldlabel: 'AccountID', 
@@ -26,7 +26,7 @@
 		{ 
 			fieldname: 'accountname', 
 			fieldlabel: 'accountname', 
-			sortable: false,
+			sortable: true,
 			editable: false
 		},
 		{ 
@@ -50,7 +50,7 @@
 		}
 	];
 	var striped = new TableStriped(obj);
-	striped.__initTable('striped', 'table');
+	striped.__initTable('striped', 'divid', 'tableid');
 </script>
 </body>
 </html>

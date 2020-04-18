@@ -34,3 +34,7 @@ i {
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
 }
+
+.table-header-cursour {
+	cursor: pointer;
+}
