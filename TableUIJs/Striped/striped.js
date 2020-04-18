@@ -3,15 +3,28 @@ class TableStriped {
 	constructor(obj) {
 		this.type = ''; //type of table design
 		this.view = ''; //id where to see table
+		this.header = '';
 		this.obj = obj;
 		this.tableInstance = 'table';
 		this.classInstance = 'class';
-		this.header = '';
 	}
 	
+	__parseObject = () => {
+		for(var i=0; i<this.obj.length;i++) {
+			if (this.obj[i].custom) {
+				var custom = this.obj[i].custom;
+				this.orderBy = custom.orderBy;
+				this.limitPerPage = custom.limitPerPage;
+				this.pagination = custom.pagination;
+				this.search = custom.search;
+			}
+		}		
+	}
+
 	__initTable = (type, id) => {
 		this.type = type.toLowerCase();
 		this.view = id;
+		this.__parseObject();
 		if (this.type == 'striped') {
 			this.__createTable();
 		}
@@ -31,6 +44,9 @@ class TableStriped {
 			if (this.obj[i].fieldlabel) {
 				var value = row.insertCell(i);
 				value.innerHTML = this.obj[i].fieldlabel;
+				if (this.obj[i].sortable) {
+					value.innerHTML += ' <i class="up" id="'+this.obj[i].fieldname+'" onclick="__sortUp(this.id)"></i>';
+				}
 			}
 		}
 		return table;
@@ -60,12 +76,14 @@ class TableStriped {
 		var singleRow = [];
 		var singleCell = [];
 		Object.keys(rows).forEach(function (item) {
-		 	singleRow[item] = header.insertRow(-1); 
+		 	singleRow[item] = header.insertRow(-1);
+		 	singleRow[item].setAttribute('data-tr-id', item); 
 		 	Object.keys(rows[item]).forEach(function (index) {
 		 		var obj = rows[item][index];
 		 		var fieldname = obj[0];
 		 		var fieldvalue = obj[1];
 		 		singleCell[index] = singleRow[item].insertCell(index);
+		 		singleCell[index].setAttribute('data-td-name', fieldname);
 		 		singleCell[index].innerHTML = fieldvalue;
 		 	});
 		});
