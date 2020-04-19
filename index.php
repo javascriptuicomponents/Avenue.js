@@ -6,6 +6,7 @@
 	<script src="TableUIJs/Striped/striped.js"></script>
 </head>
 <body>
+<a onclick="striped.__deleteCheckedRows('tableid')">deleterow</a>
 <div id="divid"></div>
 <script>
 	//json type
@@ -42,10 +43,11 @@
 		},
 		{ custom: {
 				orderBy: 'desc',
-				limitPerPage: 10,
+				limitPerPage: 4,
 				pagination: true,
 				search: false,
-				checkbox: true
+				checkbox: true,
+				dragable: true
 			}
 		}
 	];
