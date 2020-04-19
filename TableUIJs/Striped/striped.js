@@ -97,7 +97,7 @@ class TableStriped {
 		var singleCell = [];
 		Object.keys(rows).forEach(function(item) {
 			singleRow[item] = header.insertRow(-1);
-			singleRow[item].setAttribute('data-tr-id', item);
+			singleRow[item].setAttribute('id', item);
 			if (Striped.checkbox == true) {
 				var checkbox = document.createElement("input");
 				checkbox.setAttribute("type", "checkbox");
@@ -149,15 +149,35 @@ class TableStriped {
 			}
 		}
 	};
+	
+	/* method __getCheckedRows('tabledid')
+	@params tableid */
+	__getCheckedRows = (tableid) => {
+		var checkboxes = document.getElementsByName("check-"+tableid);
+		var checkboxesChecked = [];
+		for (var i=0; i<checkboxes.length; i++) {
+			if (checkboxes[i].checked) {
+		    	checkboxesChecked.push(checkboxes[i].id);
+		 	}
+		}
+		return checkboxesChecked;
+	};
 
-	//method
-	__deleteRows = (index) => {
-
-	}
+	/* method __deleteCheckedRows('tabledid')
+	@params tableid */
+	__deleteCheckedRows = (tableid) => {
+		const checkedRows = this.__getCheckedRows(tableid);
+		for (var i = 0; i < checkedRows.length; i++) {
+			var rowID = checkedRows[i].split('-');
+		    var row = document.getElementById(rowID[3]);
+		    row.parentNode.removeChild(row);
+		}
+		//api here
+	};
 	//method
 	__apendRows = () => {
 
-	}
+	};
 
 	__sortTable = (n, tableid) => {
 		var tid = tableid.split('_');
