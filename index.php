@@ -4,7 +4,6 @@
 	<title>TableUIJs</title>
 	<link rel="stylesheet" type="text/css" href="TableUIJs/Striped/striped.css">
 	<script src="TableUIJs/Striped/striped.js"></script>
-	<script src="TableUIJs/table.js"></script>
 </head>
 <body>
 <div id="divid"></div>
@@ -46,6 +45,7 @@
 				limitPerPage: 10,
 				pagination: true,
 				search: false,
+				checkbox: true
 			}
 		}
 	];

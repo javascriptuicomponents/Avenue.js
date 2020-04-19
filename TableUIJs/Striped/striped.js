@@ -1,89 +1,111 @@
 class TableStriped {
 
-	constructor(obj) {
+	constructor(data) {
+		this.Config = '';
 		this.type = ''; //type of table design
 		this.view = ''; //id where to see table
 		this.header = '';
 		this.tableid = '';
-		this.obj = obj;
+		this.dataStriped = data;
 		this.tableInstance = 'table';
 		this.classInstance = 'class';
-	}
+	};
 	
 	__parseObject = () => {
-		for(var i=0; i<this.obj.length;i++) {
-			if (this.obj[i].custom) {
-				var custom = this.obj[i].custom;
-				this.orderBy = custom.orderBy;
-				this.limitPerPage = custom.limitPerPage;
-				this.pagination = custom.pagination;
-				this.search = custom.search;
+		var Striped = [];
+		for(var i=0; i<this.dataStriped.length;i++) {
+			if (this.dataStriped[i].custom) {
+				var custom = this.dataStriped[i].custom;
+				Striped['orderBy'] = custom.orderBy;
+				Striped['limitPerPage'] = custom.limitPerPage;
+				Striped['pagination'] = custom.pagination;
+				Striped['search'] = custom.search;
+				Striped['checkbox'] = custom.checkbox;
 			}
-		}		
-	}
+		}
+		return Striped;	
+	};
 
 	__initTable = (type, id, tableid) => {
 		this.type = type.toLowerCase();
 		this.view = id;
 		this.tableid = tableid;
-		this.__parseObject();
 		if (this.type == 'striped') {
 			this.__createTable();
 		}
-	}
+	};
 
 	__createTable = () => {
 		this.header = this.__headerStriped();
 		this.__getBodyStriped(); //get all data
 		document.getElementById(this.view).appendChild(this.header);
-	}
+	};
 
 	__headerStriped = () => {
+		var Striped = this.__parseObject();
 		var table = document.createElement(this.tableInstance);
 		table.setAttribute(this.classInstance, 'table-striped table-header');
 		table.setAttribute('id', this.tableid);
 		var row = table.insertRow(0);
-		for(var i=0; i<this.obj.length;i++) {
-			if (this.obj[i].fieldlabel) {
+		if (Striped.checkbox == true) {
+			var checkbox = document.createElement("input");
+			checkbox.setAttribute("type", "checkbox");
+			checkbox.setAttribute("id", "all-checked-for-"+this.tableid);
+			checkbox.setAttribute("onclick", "striped.__checkAllRows("+this.tableid+")");
+ 		 	var checkboxCell = row.insertCell(0);
+ 		 	checkboxCell.appendChild(checkbox);
+		}
+		for(var i=0; i<this.dataStriped.length;i++) {
+			if (this.dataStriped[i].fieldlabel) {
 				var value = row.insertCell(i);
 				value.setAttribute('id', this.tableid+"_"+i);
-				if (this.obj[i].sortable) {
-					value.innerHTML = '<span class="table-header-cursour">'+this.obj[i].fieldlabel+'</span>';
+				if (this.dataStriped[i].sortable) {
+					value.innerHTML = '<span class="table-header-cursour">'+this.dataStriped[i].fieldlabel+'</span>';
 					value.setAttribute('onclick', 'striped.__sortTable('+i+', this.id)');
 				} else {
-					value.innerHTML = this.obj[i].fieldlabel;
+					value.innerHTML = this.dataStriped[i].fieldlabel;
 				}
 			}
 		}
 		return table;
-	}
+	};
 
 	__getBodyStriped = () => {
-		for(var i=0; i<this.obj.length;i++) {
-			if (this.obj[i].api) {
-				var api = this.obj[i].api;
+		for(var i=0; i<this.dataStriped.length;i++) {
+			if (this.dataStriped[i].api) {
+				var api = this.dataStriped[i].api;
 			}
 		}
 		this.__dataRequest(api, 'body');
-	}
+	};
 
 	__bodyStriped = (response) => {
+		var Striped = this.__parseObject();
 		var rows = {};
 		for(var i=0; i<response.length;i++) {
 			var value = {};
-			for (var j = 0; j < this.obj.length; j++) {
-				if (this.obj[j].fieldname) {
-					value[j] = [this.obj[j].fieldname, response[i][j]];
+			for (var j = 0; j < this.dataStriped.length; j++) {
+				if (this.dataStriped[j].fieldname) {
+					value[j] = [this.dataStriped[j].fieldname, response[i][j]];
 				}
 			}
 			rows[i] = value;
 		}
 		var header = this.header;
+		var tableid = this.tableid;
 		var singleRow = [];
 		var singleCell = [];
 		Object.keys(rows).forEach(function (item) {
 		 	singleRow[item] = header.insertRow(-1);
 		 	singleRow[item].setAttribute('data-tr-id', item); 
+	 		if (Striped.checkbox == true) {
+				var checkbox = document.createElement("input");
+				checkbox.setAttribute("type", "checkbox");
+				checkbox.setAttribute("id", "checked-for-"+tableid+"-"+item);
+				checkbox.setAttribute("name", "check-"+tableid);
+	 		 	singleCell[0] = singleRow[item].insertCell(0);
+	 		 	singleCell[0].appendChild(checkbox);
+	 		}
 		 	Object.keys(rows[item]).forEach(function (index) {
 		 		var obj = rows[item][index];
 		 		var fieldname = obj[0];
@@ -93,7 +115,8 @@ class TableStriped {
 		 		singleCell[index].innerHTML = fieldvalue;
 		 	});
 		});
-	}
+	};
+
 
 	__dataRequest = (api, type = false) => {
 		const url = api.url;
@@ -114,6 +137,26 @@ class TableStriped {
 		  		this.__bodyStriped(json);
 		  	}
 		})();
+	};
+
+	__checkAllRows = (table) => {
+	   var allCheckboxes = document.getElementsByName('check-'+table.id);
+	   	for (var i = 0; i < allCheckboxes.length; i++) {
+	   		if (allCheckboxes[i].checked == true) {
+	   			allCheckboxes[i].checked = false;
+	   		} else {
+	      		allCheckboxes[i].checked = true;
+	   		}
+	   	}
+	};
+
+	//method
+	__deleteRows = (index) => {
+
+	}
+	//method
+	__apendRows = () => {
+
 	}
 
 	__sortTable = (n, tableid) => {
@@ -152,5 +195,5 @@ class TableStriped {
 	      		}
 	    	}
 	  	}
-	}
+	};
 }
