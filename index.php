@@ -2,11 +2,11 @@
 <html>
 <head>
 	<title>TableUIJs</title>
-	<link rel="stylesheet" type="text/css" href="TableUIJs/Striped/striped.css">
-	<script src="TableUIJs/Striped/striped.js"></script>
+	<link rel="stylesheet" type="text/css" href="TableUIJs/dataTable.css">
+	<script src="TableUIJs/dataTable.js"></script>
 </head>
 <body>
-<a onclick="striped.__deleteCheckedRows('tableid')">deleterow</a>
+<a class="button button-gray" onclick="striped.__deleteCheckedRows('tableid')">deleterow</a>
 <div id="divid"></div>
 <script>
 	//json type
@@ -45,14 +45,16 @@
 				orderBy: 'desc',
 				limitPerPage: 4,
 				pagination: true,
+				paginationAlign: 'right',
 				search: false,
 				checkbox: true,
-				dragable: true
+				dragable: true,
+				rowsHeight: 10
 			}
 		}
 	];
-	var striped = new TableStriped(obj);
-	striped.__initTable('striped', 'divid', 'tableid');
+	var striped = new DataTable(obj);
+	striped.__initTable('bordered', 'divid', 'tableid');
 </script>
 </body>
 </html>

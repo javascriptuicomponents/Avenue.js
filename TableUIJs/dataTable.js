@@ -4,32 +4,61 @@
  * @author Avvictech Group
  * @license GNU
  */
-class TableStriped {
+class DataTable {
+
 	constructor(data) {
 		this.type = '';
 		this.view = '';
 		this.header = '';
 		this.tableid = '';
 		this.shadow; //dragable
-		this.dataStriped = data;
+		this.dataTable = data;
 		this.tableInstance = 'table';
 		this.classInstance = 'class';
+
+		this.Config = this.__config();
 	}
 
+	__config = () => {
+		const data = {
+			'orderBy': 'orderBy',
+			'limitPerPage': 'limitPerPage',
+			'pagination': 'pagination',
+			'search': 'search',
+			'checkbox': 'checkbox',
+			'dragable': 'dragable',
+			'tableStriped': 'table-striped',
+			'tableBordered': 'table-bordered',
+			'tableHeader': 'table-header',
+			'idAttr': 'id',
+			'onclick': 'onclick',
+			'draggable': 'draggable',
+			'checkbox': 'checkbox',
+			'input': 'input',
+			'type': 'type',
+			'name': 'name',
+			'paginationAlign': 'paginationAlign',
+			'border': 'border',
+		};
+		return data;
+	};
+
 	__parseObject = () => {
-		var Striped = [];
-		for (var i = 0; i < this.dataStriped.length; i++) {
-			if (this.dataStriped[i].custom) {
-				var custom = this.dataStriped[i].custom;
-				Striped['orderBy'] = custom.orderBy;
-				Striped['limitPerPage'] = custom.limitPerPage;
-				Striped['pagination'] = custom.pagination;
-				Striped['search'] = custom.search;
-				Striped['checkbox'] = custom.checkbox;
-				Striped['dragable'] = custom.dragable;
+		var Table = [];
+		for (var i = 0; i < this.dataTable.length; i++) {
+			if (this.dataTable[i].custom) {
+				var custom = this.dataTable[i].custom;
+				Table[this.Config.orderBy] = custom.orderBy;
+				Table[this.Config.limitPerPage] = custom.limitPerPage;
+				Table[this.Config.pagination] = custom.pagination;
+				Table[this.Config.search] = custom.search;
+				Table[this.Config.checkbox] = custom.checkbox;
+				Table[this.Config.dragable] = custom.dragable;
+				Table[this.Config.paginationAlign] = custom.paginationAlign;
+				Table[this.Config.rowsHeight] = custom.rowsHeight;
 			}
 		}
-		return Striped;
+		return Table;
 	};
 
 	/*
@@ -41,54 +70,75 @@ class TableStriped {
 		this.type = type.toLowerCase();
 		this.view = id;
 		this.tableid = tableid;
-		if (this.type == 'striped') {
-			this.__createTable();
-		}
+		this.__createTable(this.type);
 	};
 
 	__createTable = () => {
-		this.header = this.__headerStriped();
-		this.__getBodyStriped(); //get all data
+		this.header = this.__tableHeader();
+		this.__getTableBody(); //get all data
 		document.getElementById(this.view).appendChild(this.header);
 	};
 
 	/*
-	 * method __headerStriped()
+	 * method __tableHeader()
 	 * @params
 	 * create header ot table
 	 */
-	__headerStriped = () => {
-		var Striped = this.__parseObject();
+	__tableHeader = () => {
+		var Table = this.__parseObject();
 		var table = document.createElement(this.tableInstance);
-		table.setAttribute(this.classInstance, 'table-striped table-header');
-		table.setAttribute('id', this.tableid);
+		if (this.type == 'striped') {	
+			table.setAttribute(
+				this.classInstance, 
+				this.Config.tableStriped+' '+this.Config.tableHeader
+			);
+		}
+		if (this.type == 'bordered') {
+			table.setAttribute(
+				this.classInstance, 
+				this.Config.tableBordered+' '+this.Config.tableHeader
+			);
+			table.setAttribute(
+				this.Config.border,
+				'1px'
+			);
+		}
+		table.setAttribute(
+			this.Config.idAttr, 
+			this.tableid
+		);
 		var row = table.insertRow(0);
-		if (Striped.checkbox == true) {
+		var rowsHeight = 'rowsHeight16';
+		if (this.Config.rowsHeight) {
+			rowsHeight = 'rowsHeight'+this.Config.rowsHeight;
+		}
+		row.setAttribute('class', rowsHeight);
+		if (Table.checkbox == true) {
 			var checkbox = document.createElement('input');
 			checkbox.setAttribute('type', 'checkbox');
 			checkbox.setAttribute('id', 'all-checked-for-' + this.tableid);
 			checkbox.setAttribute(
-				'onclick',
+				this.Config.onclick,
 				'striped.__checkAllRows(' + this.tableid + ')'
 			);
 			var checkboxCell = row.insertCell(0);
 			checkboxCell.appendChild(checkbox);
 		}
-		for (var i = 0; i < this.dataStriped.length; i++) {
-			if (this.dataStriped[i].fieldlabel) {
+		for (var i = 0; i < this.dataTable.length; i++) {
+			if (this.dataTable[i].fieldlabel) {
 				var value = row.insertCell(i);
 				value.setAttribute('id', this.tableid + '_' + i);
-				if (this.dataStriped[i].sortable) {
+				if (this.dataTable[i].sortable) {
 					value.innerHTML =
 						'<span class="table-header-cursour">' +
-						this.dataStriped[i].fieldlabel +
+						this.dataTable[i].fieldlabel +
 						'</span>';
 					value.setAttribute(
-						'onclick',
+						this.Config.onclick,
 						'striped.__sortTable(' + i + ', this.id)'
 					);
 				} else {
-					value.innerHTML = this.dataStriped[i].fieldlabel;
+					value.innerHTML = this.dataTable[i].fieldlabel;
 				}
 			}
 		}
@@ -96,27 +146,27 @@ class TableStriped {
 	};
 
 	/*
-	 * method __getBodyStriped()
+	 * method __getTableBody()
 	 * @params
 	 * get all data to create rows for table
 	 */
-	__getBodyStriped = () => {
-		for (var i = 0; i < this.dataStriped.length; i++) {
-			if (this.dataStriped[i].api) {
-				var api = this.dataStriped[i].api;
+	__getTableBody = () => {
+		for (var i = 0; i < this.dataTable.length; i++) {
+			if (this.dataTable[i].api) {
+				var api = this.dataTable[i].api;
 			}
 		}
 		this.__dataRequest(api, 'body');
 	};
 
-	__bodyStriped = (response) => {
-		var Striped = this.__parseObject();
+	__tableBody = (response) => {
+		var Table = this.__parseObject();
 		var rows = {};
 		for (var i = 0; i < response.length; i++) {
 			var value = {};
-			for (var j = 0; j < this.dataStriped.length; j++) {
-				if (this.dataStriped[j].fieldname) {
-					value[j] = [this.dataStriped[j].fieldname, response[i][j]];
+			for (var j = 0; j < this.dataTable.length; j++) {
+				if (this.dataTable[j].fieldname) {
+					value[j] = [this.dataTable[j].fieldname, response[i][j]];
 				}
 			}
 			rows[i] = value;
@@ -128,7 +178,7 @@ class TableStriped {
 		Object.keys(rows).forEach(function (item) {
 			singleRow[item] = header.insertRow(-1);
 			singleRow[item].setAttribute('id', item);
-			if (Striped.dragable) {
+			if (Table.dragable) {
 				singleRow[item].setAttribute('draggable', true);
 				singleRow[item].setAttribute(
 					'ondragstart',
@@ -139,7 +189,7 @@ class TableStriped {
 					'striped.__dragRowsOver(event)'
 				);
 			}
-			if (Striped.checkbox == true) {
+			if (Table.checkbox == true) {
 				var checkbox = document.createElement('input');
 				checkbox.setAttribute('type', 'checkbox');
 				checkbox.setAttribute('id', 'checked-for-' + tableid + '-' + item);
@@ -156,10 +206,12 @@ class TableStriped {
 				singleCell[index].innerHTML = fieldvalue;
 			});
 		});
+		//create Pagination element
+		this.__paginationElement();
 	};
 
 	__dataRequest = (api, type = false) => {
-		var Striped = this.__parseObject();
+		var Table = this.__parseObject();
 		const url = api.url;
 		const method = api.method;
 		const data = api.data;
@@ -176,17 +228,13 @@ class TableStriped {
 			if (type == 'body') {
 				var dataPagination = this.__pagination(
 					json, 
-					Striped.limitPerPage,
+					Table.limitPerPage,
 					1
 				);
 				//call table body method
-				this.__bodyStriped(dataPagination);
+				this.__tableBody(dataPagination);
 			}
 		})();
-	};
-
-	__pagination = (data, pageSize, pageNumber) => {
- 	 	return data.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
 	};
 
 	__checkAllRows = (table) => {
@@ -292,6 +340,39 @@ class TableStriped {
 			e.target.parentNode.after(this.shadow);
 		} else {
 			e.target.parentNode.before(this.shadow);
+		}
+	};
+
+	__pagination = (data, pageSize, pageNumber) => {
+ 	 	return data.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
+	};
+
+	__paginationElement = () => {
+		var Table = this.__parseObject();
+		var div = document.createElement('div');
+		div.setAttribute('id', 'pagination-'+this.tableid);
+		div.setAttribute('class', 'pagination');
+		//create href
+		if (Table.paginationAlign) {
+			div.setAttribute('class', 'pagination '+Table.paginationAlign);
+		}
+		document.body.appendChild(div);
+		var link = [];
+		for (var i = 0; i < 6; i++) {
+			if (i == 0) {
+				link[i] = document.createElement('a');
+				link[i].setAttribute('href',"#");
+				link[i].innerText = '<<';
+			} else if(i >= 1 && i <= 4) {
+				link[i] = document.createElement('a');
+				link[i].setAttribute('href',"#");
+				link[i].innerText = i;
+			} else {
+				link[i] = document.createElement('a');
+				link[i].setAttribute('href',"#");
+				link[i].innerText = '>>';
+			}
+			document.getElementById('pagination-'+this.tableid).appendChild(link[i]);
 		}
 	};
 }
