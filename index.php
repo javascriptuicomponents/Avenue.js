@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>TableUIJs</title>
-	<link rel="stylesheet" type="text/css" href="TableUIJs/dataTable.css">
-	<script src="TableUIJs/dataTable.js"></script>
+	<title>DataTable UI Javascript</title>
+	<link rel="stylesheet" type="text/css" href="Components/DataTable/dataTable.css">
+	<script src="Components/DataTable/dataTable.js"></script>
 </head>
 <body>
 <a class="button button-gray" onclick="striped.__deleteCheckedRows('tableid')">deleterow</a>
@@ -21,18 +21,6 @@
 			fieldname: 'account_no', 
 			fieldlabel: 'account_no', 
 			sortable: true,
-			editable: false
-		},
-		{ 
-			fieldname: 'accountname', 
-			fieldlabel: 'accountname', 
-			sortable: true,
-			editable: false
-		},
-		{ 
-			fieldname: 'account_type', 
-			fieldlabel: 'account_type', 
-			sortable: false,
 			editable: false
 		},
 		{ api: {
@@ -54,7 +42,7 @@
 		}
 	];
 	var striped = new DataTable(obj);
-	striped.__initTable('bordered', 'divid', 'tableid');
+	striped.__initTable('striped', 'divid', 'tableid');
 </script>
 </body>
 </html>
