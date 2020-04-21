@@ -49,7 +49,7 @@
 				search: false,
 				checkbox: true,
 				dragable: true,
-				rowsHeight: 10
+				rowsHeight: 7 // 7 tp 16 max
 			}
 		}
 	];

@@ -21,39 +21,59 @@
   background-color: #f2f2f2;
 }
 
-.rowsHeight16 th, td {
+.rowsHeight16 td {
   text-align: left;
   padding: 16px;
 }
 
-.rowsHeight15 th, td {
+.rowsHeight15 td {
   text-align: left;
   padding: 15px;
 }
 
-.rowsHeight14 th, td {
+.rowsHeight14 td {
   text-align: left;
   padding: 14px;
 }
 
-.rowsHeight13 th, td {
+.rowsHeight13 td {
   text-align: left;
   padding: 13px;
 }
 
-.rowsHeight12 th, td {
+.rowsHeight12 td {
   text-align: left;
   padding: 12px;
 }
 
-.rowsHeight11 th, td {
+.rowsHeight11 td {
   text-align: left;
   padding: 11px;
 }
 
-.rowsHeight10 th, td {
+.rowsHeight10 td {
   text-align: left;
   padding: 10px;
+}
+
+.rowsHeight9 td {
+  text-align: left;
+  padding: 9px;
+}
+
+.rowsHeight8 td {
+  text-align: left;
+  padding: 8px;
+}
+
+.rowsHeight7 td {
+  text-align: left;
+  padding: 7px;
+}
+
+.rowsHeight6 td {
+  text-align: left;
+  padding: 6px;
 }
 
 input[type=checkbox] {
@@ -128,7 +148,6 @@ i {
 .pagination a {
   color: black;
   border: 1px solid #bbbbbb;
-  border-radius: 5px;
   padding: 8px 16px;
   text-decoration: none;
 }

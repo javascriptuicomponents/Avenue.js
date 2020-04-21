@@ -39,6 +39,7 @@ class DataTable {
 			'name': 'name',
 			'paginationAlign': 'paginationAlign',
 			'border': 'border',
+			'rowsHeight': 'rowsHeight',
 		};
 		return data;
 	};
@@ -109,8 +110,8 @@ class DataTable {
 		);
 		var row = table.insertRow(0);
 		var rowsHeight = 'rowsHeight16';
-		if (this.Config.rowsHeight) {
-			rowsHeight = 'rowsHeight'+this.Config.rowsHeight;
+		if (Table.rowsHeight) {
+			rowsHeight = 'rowsHeight'+Table.rowsHeight;
 		}
 		row.setAttribute('class', rowsHeight);
 		if (Table.checkbox == true) {
@@ -189,6 +190,14 @@ class DataTable {
 					'striped.__dragRowsOver(event)'
 				);
 			}
+			var rowsHeight = 'rowsHeight16';
+			if (Table.rowsHeight) {
+				rowsHeight = 'rowsHeight'+Table.rowsHeight;
+			}
+			singleRow[item].setAttribute(
+				'class',
+				rowsHeight
+			);
 			if (Table.checkbox == true) {
 				var checkbox = document.createElement('input');
 				checkbox.setAttribute('type', 'checkbox');
