@@ -2,47 +2,113 @@
 <html>
 <head>
 	<title>DataTable UI Javascript</title>
+	<link rel="stylesheet" type="text/css" href="Components/index.css">
 	<link rel="stylesheet" type="text/css" href="Components/DataTable/dataTable.css">
 	<script src="Components/DataTable/dataTable.js"></script>
+	<script src="Components/Buttons/buttons.js"></script>
 </head>
 <body>
-<a class="button button-gray" onclick="striped.__deleteCheckedRows('tableid')">deleterow</a>
+<h1>Buttons</h1>
+<div id="button"></div>
+<h1>DataTable</h1>
 <div id="divid"></div>
-<script>
-	//json type
-	var obj = [
-		{ 
-			fieldname: 'accountid', 
-			fieldlabel: 'AccountID', 
-			sortable: true,
-			editable: true
-		},
-		{ 
-			fieldname: 'account_no', 
-			fieldlabel: 'account_no', 
-			sortable: true,
-			editable: false
-		},
-		{ api: {
-				url: 'test.php',
-				method: 'post',
-				data: null
-			}
-		},
-		{ custom: {
-				orderBy: 'desc',
-				limitPerPage: 4,
-				pagination: true,
-				paginationAlign: 'right',
-				search: false,
-				checkbox: true,
-				dragable: true,
-				rowsHeight: 7 // 7 tp 16 max
-			}
-		}
-	];
-	var striped = new DataTable(obj);
-	striped.__initTable('striped', 'divid', 'tableid');
-</script>
+<h1>GRID</h1>
+<div class="section group">
+	<div class="col group-1" style="background: #d3d3d3">
+		1 of 12
+	</div>
+	<div class="col group-1" style="background: #d3d3d3">
+		1 of 12
+	</div>
+	<div class="col group-1" style="background: #d3d3d3">
+		1 of 12
+	</div>
+	<div class="col group-1" style="background: #d3d3d3">
+		1 of 12
+	</div>
+	<div class="col group-1" style="background: #d3d3d3">
+		1 of 12
+	</div>
+	<div class="col group-1" style="background: #d3d3d3">
+		1 of 12
+	</div>
+	<div class="col group-1" style="background: #d3d3d3">
+		1 of 12
+	</div>
+	<div class="col group-1" style="background: #d3d3d3">
+		1 of 12
+	</div>
+	<div class="col group-1" style="background: #d3d3d3">
+		1 of 12
+	</div>
+	<div class="col group-1" style="background: #d3d3d3">
+		1 of 12
+	</div>
+	<div class="col group-1" style="background: #d3d3d3">
+		1 of 12
+	</div>
+	<div class="col group-1" style="background: #d3d3d3">
+		1 of 12
+	</div>
+</div>
+<div class="section group">
+	<div class="col group-2" style="background: #d3d3d3">
+		2 of 12
+	</div>
+	<div class="col group-2" style="background: #d3d3d3">
+		2 of 12
+	</div>
+	<div class="col group-2" style="background: #d3d3d3">
+		2 of 12
+	</div>
+	<div class="col group-2" style="background: #d3d3d3">
+		2 of 12
+	</div>
+	<div class="col group-2" style="background: #d3d3d3">
+		2 of 12
+	</div>
+	<div class="col group-2" style="background: #d3d3d3">
+		2 of 12
+	</div>
+</div>
+<div class="section group">
+	<div class="col group-3" style="background: #d3d3d3">
+		3 of 12
+	</div>
+	<div class="col group-3" style="background: #d3d3d3">
+		3 of 12
+	</div>
+	<div class="col group-3" style="background: #d3d3d3">
+		3 of 12
+	</div>
+	<div class="col group-3" style="background: #d3d3d3">
+		3 of 12
+	</div>
+</div>
+<div class="section group">
+	<div class="col group-4" style="background: #d3d3d3">
+		4 of 12
+	</div>
+	<div class="col group-4" style="background: #d3d3d3">
+		4 of 12
+	</div>
+	<div class="col group-4" style="background: #d3d3d3">
+		4 of 12
+	</div>
+</div>
+<div class="section group">
+	<div class="col group-6" style="background: #d3d3d3">
+		6 of 12
+	</div>
+	<div class="col group-6" style="background: #d3d3d3">
+		6 of 12
+	</div>
+</div>
+<div class="section group">
+	<div class="col group-12" style="background: #d3d3d3">
+		12 of 12
+	</div>
+</div>
+<script src="index.js"></script>
 </body>
 </html>

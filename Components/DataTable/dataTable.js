@@ -88,16 +88,20 @@ class DataTable {
 	__tableHeader = () => {
 		var Table = this.__parseObject();
 		var table = document.createElement(this.tableInstance);
+		var scrollOnTable = '';
+		if (!Table.pagination) {
+			scrollOnTable = 'scrollOnTable';
+		}
 		if (this.type == 'striped') {	
 			table.setAttribute(
 				this.classInstance, 
-				this.Config.tableStriped+' '+this.Config.tableHeader
+				this.Config.tableStriped+' '+this.Config.tableHeader+' '+scrollOnTable
 			);
 		}
 		if (this.type == 'bordered') {
 			table.setAttribute(
 				this.classInstance, 
-				this.Config.tableBordered+' '+this.Config.tableHeader
+				this.Config.tableBordered+' '+this.Config.tableHeader+' '+scrollOnTable
 			);
 			table.setAttribute(
 				this.Config.border,
@@ -120,7 +124,7 @@ class DataTable {
 			checkbox.setAttribute('id', 'all-checked-for-' + this.tableid);
 			checkbox.setAttribute(
 				this.Config.onclick,
-				'striped.__checkAllRows(' + this.tableid + ')'
+				this.type+'.__checkAllRows(' + this.tableid + ')'
 			);
 			var checkboxCell = row.insertCell(0);
 			checkboxCell.appendChild(checkbox);
@@ -136,7 +140,7 @@ class DataTable {
 						'</span>';
 					value.setAttribute(
 						this.Config.onclick,
-						'striped.__sortTable(' + i + ', this.id)'
+						this.type+'.__sortTable(' + i + ', this.id)'
 					);
 				} else {
 					value.innerHTML = this.dataTable[i].fieldlabel;
@@ -173,21 +177,22 @@ class DataTable {
 			rows[i] = value;
 		}
 		var header = this.header;
+		var type = this.type;
 		var tableid = this.tableid;
 		var singleRow = [];
 		var singleCell = [];
 		Object.keys(rows).forEach(function (item) {
 			singleRow[item] = header.insertRow(-1);
-			singleRow[item].setAttribute('id', item);
+			singleRow[item].setAttribute('id', item+'-'+tableid);
 			if (Table.dragable) {
 				singleRow[item].setAttribute('draggable', true);
 				singleRow[item].setAttribute(
 					'ondragstart',
-					'striped.__dragRows(event)'
+					type+'.__dragRows(event)'
 				);
 				singleRow[item].setAttribute(
 					'ondragover',
-					'striped.__dragRowsOver(event)'
+					type+'.__dragRowsOver(event)'
 				);
 			}
 			var rowsHeight = 'rowsHeight16';
@@ -216,7 +221,9 @@ class DataTable {
 			});
 		});
 		//create Pagination element
-		this.__paginationElement();
+		if(Table.pagination) {
+			this.__paginationElement();
+		}
 	};
 
 	__dataRequest = (api, type = false) => {
@@ -235,11 +242,15 @@ class DataTable {
 			});
 			let json = await response.json();
 			if (type == 'body') {
-				var dataPagination = this.__pagination(
-					json, 
-					Table.limitPerPage,
-					1
-				);
+				if(Table.pagination) {
+					var dataPagination = this.__pagination(
+						json, 
+						Table.limitPerPage,
+						1
+					);
+				} else {
+					var dataPagination = json;
+				}
 				//call table body method
 				this.__tableBody(dataPagination);
 			}
@@ -280,7 +291,7 @@ class DataTable {
 		const checkedRows = this.__getCheckedRows(tableid);
 		for (var i = 0; i < checkedRows.length; i++) {
 			var rowID = checkedRows[i].split('-');
-			var row = document.getElementById(rowID[3]);
+			var row = document.getElementById(rowID[3]+'-'+tableid);
 			row.parentNode.removeChild(row);
 		}
 		//api here
@@ -365,7 +376,7 @@ class DataTable {
 		if (Table.paginationAlign) {
 			div.setAttribute('class', 'pagination '+Table.paginationAlign);
 		}
-		document.body.appendChild(div);
+		document.getElementById(this.view).appendChild(div);
 		var link = [];
 		for (var i = 0; i < 6; i++) {
 			if (i == 0) {
