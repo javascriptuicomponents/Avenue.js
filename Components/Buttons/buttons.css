@@ -1,59 +1,53 @@
 /* ----- BUTTONS -----*/
 .button {
-  background-color: #4CAF50;
   border: none;
-  color: white;
-  padding: 16px 32px;
-  text-align: center;
-  text-decoration: none;
+  background: #d3d3d3;
+  color: #000;
+  font-weight: 100;
+  padding: 20px;
+  text-transform: uppercase;
   display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  transition-duration: 0.4s;
-  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+
+.button:hover {
+  color: #404040;
+  font-weight: 700;
+  background: none;
+  -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  transition: all 0.3s ease 0s;
 }
 
 .button-small {
-  padding: 5px 15px;
+  padding: 10px 25px;
 }
 
 .button-medium {
-  padding: 7px 18px;
+  padding: 15px 30px;
 }
 
 .button-large {
-  padding: 10px 20px;
+  padding: 20px 40px;
 }
 
 .button-radius {
-  border-radius: 5px;
-}
-
-.button-gray {
-  background-color: white;
-  color: black;
-  border: 2px solid #e7e7e7;
-}
-
-.button-gray:hover {
-	background-color: #e7e7e7;
+  border-radius: 6px;
 }
 
 .button-blue {
-  background-color: white;
-  color: black;
-  border: 2px solid #3131e6;
+  background-color: #6c7ae0;
+  color: white;
 }
 
 .button-blue:hover {
   color: white;
-  background-color: #3131e6;
+  background-color: #6c7ae0;
 }
 
 .button-red {
-  background-color: white;
-  color: black;
-  border: 2px solid #dc2e2e;
+  background-color: #dc2e2e;
+  color: white;
 }
 
 .button-red:hover {
@@ -62,9 +56,8 @@
 }
 
 .button-green {
-  background-color: white;
-  color: black;
-  border: 2px solid green;
+  background-color: green;
+  color: white;
 }
 
 .button-green:hover {
@@ -73,9 +66,8 @@
 }
 
 .button-yellow {
-  background-color: white;
+  background-color: yellow;
   color: black;
-  border: 2px solid yellow;
 }
 
 .button-yellow:hover {

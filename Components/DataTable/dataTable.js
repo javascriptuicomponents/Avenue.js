@@ -40,6 +40,7 @@ class DataTable {
 			'paginationAlign': 'paginationAlign',
 			'border': 'border',
 			'rowsHeight': 'rowsHeight',
+			'api': 'api',
 		};
 		return data;
 	};
@@ -57,6 +58,9 @@ class DataTable {
 				Table[this.Config.dragable] = custom.dragable;
 				Table[this.Config.paginationAlign] = custom.paginationAlign;
 				Table[this.Config.rowsHeight] = custom.rowsHeight;
+			}
+			if (this.dataTable[i].api) {
+				Table[this.Config.api] = this.dataTable[i].api;
 			}
 		}
 		return Table;
@@ -127,6 +131,9 @@ class DataTable {
 				this.type+'.__checkAllRows(' + this.tableid + ')'
 			);
 			var checkboxCell = row.insertCell(0);
+			checkboxCell.setAttribute(
+				'style', 'max-width: 2%'
+			);
 			checkboxCell.appendChild(checkbox);
 		}
 		for (var i = 0; i < this.dataTable.length; i++) {
@@ -161,11 +168,22 @@ class DataTable {
 				var api = this.dataTable[i].api;
 			}
 		}
-		this.__dataRequest(api, 'body');
+		this.__dataRequest('body');
 	};
 
-	__tableBody = (response) => {
+	__tableBody = (response, page = 1, size = 0) => {
 		var Table = this.__parseObject();
+		var tableid = this.tableid;
+
+		//delete actual rows if paginate is true
+		if (page != 1) {
+			for (var r = 0; r < Table.limitPerPage; r++) {
+				var row = document.getElementById(r+'-'+tableid);
+				if(row != null) {
+					row.parentNode.removeChild(row);
+				}
+			}
+		}
 		var rows = {};
 		for (var i = 0; i < response.length; i++) {
 			var value = {};
@@ -178,7 +196,6 @@ class DataTable {
 		}
 		var header = this.header;
 		var type = this.type;
-		var tableid = this.tableid;
 		var singleRow = [];
 		var singleCell = [];
 		Object.keys(rows).forEach(function (item) {
@@ -209,6 +226,9 @@ class DataTable {
 				checkbox.setAttribute('id', 'checked-for-' + tableid + '-' + item);
 				checkbox.setAttribute('name', 'check-' + tableid);
 				singleCell[0] = singleRow[item].insertCell(0);
+				singleCell[0].setAttribute(
+					'style', 'max-width: 2%'
+				);
 				singleCell[0].appendChild(checkbox);
 			}
 			Object.keys(rows[item]).forEach(function (index) {
@@ -222,15 +242,15 @@ class DataTable {
 		});
 		//create Pagination element
 		if(Table.pagination) {
-			this.__paginationElement();
+			this.__paginationElement(page, size);
 		}
 	};
 
-	__dataRequest = (api, type = false) => {
+	__dataRequest = (type = false, page = 1) => {
 		var Table = this.__parseObject();
-		const url = api.url;
-		const method = api.method;
-		const data = api.data;
+		const url = Table.api.url;
+		const method = Table.api.method;
+		const data = Table.api.data;
 
 		(async () => {
 			const response = await fetch(url, {
@@ -246,13 +266,17 @@ class DataTable {
 					var dataPagination = this.__pagination(
 						json, 
 						Table.limitPerPage,
-						1
+						page
 					);
 				} else {
 					var dataPagination = json;
 				}
-				//call table body method
-				this.__tableBody(dataPagination);
+				if (page != 1) {
+					this.__tableBody(dataPagination, page, json.length);
+				} else {
+					//call table body method
+					this.__tableBody(dataPagination);
+				}
 			}
 		})();
 	};
@@ -363,36 +387,63 @@ class DataTable {
 		}
 	};
 
+	__nextPage = (page) => {
+		this.__dataRequest('body', page);
+	};
+
+	__previusPage = (page) => {
+		this.__dataRequest('body', page);
+	};
+
 	__pagination = (data, pageSize, pageNumber) => {
  	 	return data.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
 	};
 
-	__paginationElement = () => {
+	__paginationElement = (page, size) => {
+		if(page != 1) {
+			document.getElementById('pagination-'+this.tableid).innerHTML = '';
+		}
 		var Table = this.__parseObject();
 		var div = document.createElement('div');
 		div.setAttribute('id', 'pagination-'+this.tableid);
 		div.setAttribute('class', 'pagination');
+		//calc rows for pagination max
+		if(size != 0) {
+			var s = parseInt(size) / parseInt(Table.limitPerPage);
+		}
 		//create href
 		if (Table.paginationAlign) {
 			div.setAttribute('class', 'pagination '+Table.paginationAlign);
 		}
 		document.getElementById(this.view).appendChild(div);
 		var link = [];
-		for (var i = 0; i < 6; i++) {
-			if (i == 0) {
-				link[i] = document.createElement('a');
-				link[i].setAttribute('href',"#");
-				link[i].innerText = '<<';
-			} else if(i >= 1 && i <= 4) {
-				link[i] = document.createElement('a');
-				link[i].setAttribute('href',"#");
-				link[i].innerText = i;
-			} else {
-				link[i] = document.createElement('a');
-				link[i].setAttribute('href',"#");
-				link[i].innerText = '>>';
-			}
+		var _PAGE = page - 1;
+		if (_PAGE == 1) {
+			link[i] = document.createElement('a');
+			link[i].setAttribute('disabled', 'true');
+			link[i].innerText = '<<';
+		} else {
+			link[i] = document.createElement('a');
+			link[i].setAttribute('onclick',this.type+".__nextPage("+_PAGE+")");
+			link[i].innerText = '<<';
+		}
+		document.getElementById('pagination-'+this.tableid).appendChild(link[i]);
+		for (var i = page; i < page + 5; i++) {
+		    if (i == page) {
+		        var active = 'active';
+		    } else {
+		        var active = '';
+		    }
+			link[i] = document.createElement('a');
+			link[i].setAttribute('onclick',this.type+".__nextPage("+i+")");
+			link[i].setAttribute('class', active);
+			link[i].innerText = i;
 			document.getElementById('pagination-'+this.tableid).appendChild(link[i]);
 		}
+		_PAGE = page + 1;
+		link[i] = document.createElement('a');
+		link[i].setAttribute('onclick',this.type+".__nextPage("+_PAGE+")");
+		link[i].innerText = '>>';
+		document.getElementById('pagination-'+this.tableid).appendChild(link[i]);
 	};
 }

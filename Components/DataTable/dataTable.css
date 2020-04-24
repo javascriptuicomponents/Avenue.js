@@ -2,14 +2,14 @@
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
-  border: 1px solid #ddd;
 }
 
 .table-bordered {
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
-  border: 1px solid #ddd;
+  border: 1px solid white;
+  border-radius: 6px;
 }
 
 .table-header {
@@ -19,6 +19,19 @@
 
 .table-striped tr:nth-child(even) {
   background-color: #f2f2f2;
+}
+
+.table-bordered tr:first-child { 
+  background: #6c7ae0; 
+  color: white;
+  border-radius: 5px;
+}
+
+.table-striped tr:first-child { 
+  background: #6c7ae0; 
+  color: white;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
 }
 
 tr:hover {

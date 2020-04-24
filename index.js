@@ -5,11 +5,11 @@ var data = {
 	classes:  {
 		1: 'button',
 		2: 'button-blue',
-		3: 'button-radius',
-		4: 'button-small',
+		3: 'button-small',
+		4: 'button-radius',
 	},
 	function: {
-		onclick: 'bordered.__deleteCheckedRows("tableid")',
+		onclick: 'striped.__deleteCheckedRows("tableid")',
 	},
 	attributes: {
 		'data-name': 2
@@ -18,11 +18,14 @@ var data = {
 var button = new Button(data);
 button.__initButton('button');
 data['value'] = 'test';
+data['classes'][2] = 'button-red';
 button.__initButton('button');
-data['classes'][2] = 'button-yellow';
+data['classes'][2] = 'button-gray';
+data['classes'][3] = 'button-large';
 button.__initButton('button');
 data['value'] = 'test button';
-data['classes'][2] = 'button-red';
+data['classes'][2] = 'button-yellow';
+data['classes'][3] = 'button-medium';
 button.__initButton('button');
 data['classes'][2] = 'button-green';
 button.__initButton('button');
@@ -61,18 +64,18 @@ var obj = [
 	},
 	{ custom: {
 			orderBy: 'desc',
-			limitPerPage: 4,
-			pagination: false,
+			limitPerPage: 6,
+			pagination: true,
 			paginationAlign: 'right',
 			search: false,
 			checkbox: true,
 			dragable: true,
-			rowsHeight: 7 // 7 tp 16 max
+			rowsHeight: 10 // 7 tp 16 max
 		}
 	}
 ];
-var bordered = new DataTable(obj); //variable name will have the same name with type of table
-bordered.__initTable('bordered', 'divid', 'tableid');//DataTable
+var striped = new DataTable(obj); //variable name will have the same name with type of table
+striped.__initTable('striped', 'divid', 'tableid');//DataTable
 
 //Forms
 var input = {
