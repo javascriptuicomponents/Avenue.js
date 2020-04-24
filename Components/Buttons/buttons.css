@@ -1,0 +1,85 @@
+/* ----- BUTTONS -----*/
+.button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.button-small {
+  padding: 5px 15px;
+}
+
+.button-medium {
+  padding: 7px 18px;
+}
+
+.button-large {
+  padding: 10px 20px;
+}
+
+.button-radius {
+  border-radius: 5px;
+}
+
+.button-gray {
+  background-color: white;
+  color: black;
+  border: 2px solid #e7e7e7;
+}
+
+.button-gray:hover {
+	background-color: #e7e7e7;
+}
+
+.button-blue {
+  background-color: white;
+  color: black;
+  border: 2px solid #3131e6;
+}
+
+.button-blue:hover {
+  color: white;
+  background-color: #3131e6;
+}
+
+.button-red {
+  background-color: white;
+  color: black;
+  border: 2px solid #dc2e2e;
+}
+
+.button-red:hover {
+  color: white;
+  background-color: #dc2e2e;
+}
+
+.button-green {
+  background-color: white;
+  color: black;
+  border: 2px solid green;
+}
+
+.button-green:hover {
+  color: white;
+  background-color: green;
+}
+
+.button-yellow {
+  background-color: white;
+  color: black;
+  border: 2px solid yellow;
+}
+
+.button-yellow:hover {
+  color: black;
+  background-color: yellow;
+}
+/* ----------*/

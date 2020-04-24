@@ -73,3 +73,55 @@ var obj = [
 ];
 var bordered = new DataTable(obj); //variable name will have the same name with type of table
 bordered.__initTable('bordered', 'divid', 'tableid');//DataTable
+
+//Forms
+var input = {
+	type: 'text',
+	name: 'inputname',
+	id: 'inputid',
+	defaultvalue: 'val',
+	placeholder: 'input',
+	classes:  {
+		1: 'input'
+	},
+	function: {
+		onclick: '',
+	},
+	attributes: {
+		'data-name': 2
+	}
+};
+
+var newInput = new FormElement(input);
+newInput.__initForm('inputid');
+
+//radio
+//checkbox
+var radio = {
+	type: 'radio',
+	name: 'inputname',
+	input:{
+		1: {
+			id: 'inputid',
+			defaultvalue: 'val',
+			function: {
+				onclick: '__tes()',
+			},
+			attributes: {
+				'data-name': 2
+			}
+		},
+		2: {
+			id: 'inputid',
+			defaultvalue: 'val',
+			function: {
+				onclick: '',
+			},
+			attributes: {
+				'data-name': 2
+			}		
+		}
+	}
+};
+var newInput = new FormElement(radio);
+newInput.__initForm('inputid');
