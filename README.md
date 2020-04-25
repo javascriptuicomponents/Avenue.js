@@ -1,6 +1,6 @@
 ### <img src="https://avatars1.githubusercontent.com/u/63910722?s=460&u=d96e8f0f5cbe93dd6384260f0c2f7b8f14fb7220&v=4" width='60px' />
 ### Avenue.js
-Avenue.js is a powerful components design for building mobile and desktop applications.
+Avenue.js is a powerful components design for building mobile and desktop applications. Check it out.
 ### Installation
 Using npm
 ```sh
