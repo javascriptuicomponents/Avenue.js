@@ -176,7 +176,7 @@ class DataTable {
 		var tableid = this.tableid;
 
 		//delete actual rows if paginate is true
-		if (page != 1) {
+		if (page != 0) {
 			for (var r = 0; r < Table.limitPerPage; r++) {
 				var row = document.getElementById(r+'-'+tableid);
 				if(row != null) {
@@ -416,9 +416,9 @@ class DataTable {
 			div.setAttribute('class', 'pagination '+Table.paginationAlign);
 		}
 		document.getElementById(this.view).appendChild(div);
-		var link = [];
 		var _PAGE = page - 1;
-		if (_PAGE == 1) {
+		var link = [];
+		if (_PAGE == 0) {
 			link[i] = document.createElement('a');
 			link[i].setAttribute('disabled', 'true');
 			link[i].innerText = '<<';
