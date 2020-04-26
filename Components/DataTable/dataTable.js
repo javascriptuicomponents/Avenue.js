@@ -128,7 +128,7 @@ class DataTable {
 			checkbox.setAttribute('id', 'all-checked-for-' + this.tableid);
 			checkbox.setAttribute(
 				this.Config.onclick,
-				this.type+'.__checkAllRows(' + this.tableid + ')'
+				'checkAllRows(' + this.tableid + ')'
 			);
 			var checkboxCell = row.insertCell(0);
 			checkboxCell.setAttribute(
@@ -147,7 +147,7 @@ class DataTable {
 						'</span>';
 					value.setAttribute(
 						this.Config.onclick,
-						this.type+'.__sortTable(' + i + ', this.id)'
+						'sortTable(' + i + ', this.id)'
 					);
 				} else {
 					value.innerHTML = this.dataTable[i].fieldlabel;
@@ -424,7 +424,7 @@ class DataTable {
 			link[i].innerText = '<<';
 		} else {
 			link[i] = document.createElement('a');
-			link[i].setAttribute('onclick',this.type+".__nextPage("+_PAGE+")");
+			link[i].setAttribute('onclick', "nextPage("+_PAGE+")");
 			link[i].innerText = '<<';
 		}
 		document.getElementById('pagination-'+this.tableid).appendChild(link[i]);
@@ -435,14 +435,14 @@ class DataTable {
 		        var active = '';
 		    }
 			link[i] = document.createElement('a');
-			link[i].setAttribute('onclick',this.type+".__nextPage("+i+")");
+			link[i].setAttribute('onclick', "nextPage("+i+")");
 			link[i].setAttribute('class', active);
 			link[i].innerText = i;
 			document.getElementById('pagination-'+this.tableid).appendChild(link[i]);
 		}
 		_PAGE = page + 1;
 		link[i] = document.createElement('a');
-		link[i].setAttribute('onclick',this.type+".__nextPage("+_PAGE+")");
+		link[i].setAttribute('onclick', "nextPage("+_PAGE+")");
 		link[i].innerText = '>>';
 		document.getElementById('pagination-'+this.tableid).appendChild(link[i]);
 	};

@@ -1,4 +1,8 @@
 import { initMenu, initButton, initForm, initTable } from './Components/config.js';
+// import { Menu } from './Components/Menu/menu.js';
+// import { FormElement } from './Components/Forms/forms.js';
+// import { Button } from './Components/Buttons/buttons.js';
+// import { DataTable } from './Components/DataTable/dataTable.js';
 
 //Top Nav Menu
 var dataMenu = {
@@ -36,9 +40,8 @@ var dataMenu = {
 		
 	}
 };
+
 initMenu('menu', dataMenu, 'nav');
-// var nav = new Menu(dataMenu);
-// nav.__initMenu('nav');
 //Buttons
 var data = {
 	type: 'button',
@@ -50,27 +53,27 @@ var data = {
 		4: 'button-radius',
 	},
 	function: {
-		onclick: 'striped.__deleteCheckedRows("tableid")',
+		onclick: 'deleteCheckedRows("tableid")',
 	},
 	attributes: {
 		'data-name': 2
 	}
 };
-initButton('button', data, 'button');
+initButton('newButton', data,'button');
 data['value'] = 'test';
 data['classes'][2] = 'button-red';
-initButton('button', data, 'button');
+initButton('newButton', data,'button');
 data['classes'][2] = 'button-red-outline';
-initButton('button', data, 'button');
+initButton('newButton', data,'button');
 data['classes'][2] = 'button-gray';
 data['classes'][3] = 'button-large';
-initButton('button', data, 'button');
+initButton('newButton', data,'button');
 data['value'] = 'test button';
 data['classes'][2] = 'button-yellow-outline';
 data['classes'][3] = 'button-medium';
-initButton('button', data, 'button');
+initButton('newButton', data,'button');
 data['classes'][2] = 'button-green';
-initButton('button', data, 'button');
+initButton('newButton', data,'button');
 
 //DataTable
 var obj = [
@@ -107,7 +110,7 @@ var obj = [
 	{ custom: {
 			orderBy: 'desc',
 			limitPerPage: 6,
-			pagination: false,
+			pagination: true,
 			paginationAlign: 'right',
 			search: false,
 			checkbox: true,
@@ -116,8 +119,8 @@ var obj = [
 		}
 	}
 ];
-initTable('striped', obj, 'divid', 'tableid');//DataTable
 
+initTable('striped', obj, 'divid', 'tableid');
 //Forms
 var input = {
 	type: 'date',

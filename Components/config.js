@@ -7,46 +7,51 @@ import { Button } from './Buttons/buttons.js';
  * @params
  * call menu creation
  */
-function initMenu(instance, data, view) {
+export function initMenu(instance, data, view) {
 	instance = new Menu(data);
 	instance.__initMenu(view);
 };
-
-export { initMenu };
 
 /*
  * method initButton()
  * @params
  * call button creation
  */
-function initButton(instance, data, view) {
+export function initButton(instance, data, view) {
 	instance = new Button(data);
 	instance.__initButton(view);
 };
-
-export { initButton };
 
 /*
  * method initForm()
  * @params
  * call form creation
  */
-function initForm(instance, data, view) {
+export function initForm(instance, data, view) {
 	instance = new FormElement(data);
 	instance.__initForm(view);
 };
-
-export { initForm };
 
 /*
  * method initTable()
  * @params
  * call table creation
  */
-function initTable(instance, data, view, tableid) {
+export function initTable(instance, data, view, tableid) {
 	var type = instance;
 	instance = new DataTable(data);
 	instance.__initTable(type, view, tableid);
+	//register methods here
+	window.deleteCheckedRows = function deleteCheckedRows(tableid) {
+	     instance.__deleteCheckedRows(tableid);
+	}
+	window.checkAllRows = function checkAllRows(tableid) {
+	    instance.__checkAllRows(tableid);
+	}
+	window.nextPage = function nextPage(page) {
+	    instance.__nextPage(page);
+	}
+	window.sortTable = function sortTable(n, s) {
+	    instance.__sortTable(n, s);
+	}
 };
-
-export { initTable };
