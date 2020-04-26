@@ -1,7 +1,4 @@
-import { DataTable } from './Components/DataTable/dataTable.js';
-import { FormElement } from './Components/Forms/forms.js';
-import { Button } from './Components/Buttons/buttons.js';
-import { Menu } from './Components/Menu/menu.js';
+import { initMenu, initButton, initForm, initTable } from './Components/config.js';
 
 //Top Nav Menu
 var dataMenu = {
@@ -39,8 +36,9 @@ var dataMenu = {
 		
 	}
 };
-var nav = new Menu(dataMenu);
-nav.__initMenu('nav');
+initMenu('menu', dataMenu, 'nav');
+// var nav = new Menu(dataMenu);
+// nav.__initMenu('nav');
 //Buttons
 var data = {
 	type: 'button',
@@ -58,22 +56,21 @@ var data = {
 		'data-name': 2
 	}
 };
-var button = new Button(data);
-button.__initButton('button');
+initButton('button', data, 'button');
 data['value'] = 'test';
 data['classes'][2] = 'button-red';
-button.__initButton('button');
+initButton('button', data, 'button');
 data['classes'][2] = 'button-red-outline';
-button.__initButton('button');
+initButton('button', data, 'button');
 data['classes'][2] = 'button-gray';
 data['classes'][3] = 'button-large';
-button.__initButton('button');
+initButton('button', data, 'button');
 data['value'] = 'test button';
 data['classes'][2] = 'button-yellow-outline';
 data['classes'][3] = 'button-medium';
-button.__initButton('button');
+initButton('button', data, 'button');
 data['classes'][2] = 'button-green';
-button.__initButton('button');
+initButton('button', data, 'button');
 
 //DataTable
 var obj = [
@@ -119,8 +116,7 @@ var obj = [
 		}
 	}
 ];
-var striped = new DataTable(obj); //variable name will have the same name with type of table
-striped.__initTable('striped', 'divid', 'tableid');//DataTable
+initTable('striped', obj, 'divid', 'tableid');//DataTable
 
 //Forms
 var input = {
@@ -140,8 +136,7 @@ var input = {
 	}
 };
 
-var newInput = new FormElement(input);
-newInput.__initForm('inputid');
+initForm('newInput', input, 'inputid');
 
 //radio
 //checkbox
@@ -171,5 +166,4 @@ var radio = {
 		}
 	}
 };
-var newInput = new FormElement(radio);
-newInput.__initForm('inputid');
+initForm('newInput', radio, 'inputid');

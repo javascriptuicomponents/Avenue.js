@@ -72,6 +72,7 @@ class DataTable {
 	 * start table creation
 	 */
 	__initTable = (type, id, tableid) => {
+		alert(type);
 		this.type = type.toLowerCase();
 		this.view = id;
 		this.tableid = tableid;
