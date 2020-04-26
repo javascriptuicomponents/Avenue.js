@@ -1,3 +1,8 @@
+import { DataTable } from './Components/DataTable/dataTable.js';
+import { FormElement } from './Components/Forms/forms.js';
+import { Button } from './Components/Buttons/buttons.js';
+import { Menu } from './Components/Menu/menu.js';
+
 //Top Nav Menu
 var dataMenu = {
 	type: 'topnav',

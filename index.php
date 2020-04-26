@@ -8,10 +8,6 @@
 	<link rel="stylesheet" type="text/css" href="Components/DataTable/dataTable.css">
 	<link rel="stylesheet" type="text/css" href="Components/Menu/menu.css">
 	<link rel="icon" href="images/63910722.jpeg" type="image/jpg" sizes="16x16">
-	<script src="Components/DataTable/dataTable.js"></script>
-	<script src="Components/Buttons/buttons.js"></script>
-	<script src="Components/Forms/forms.js"></script>
-	<script src="Components/Menu/menu.js"></script>
 </head>
 <body>
 <div id="nav"></div>
@@ -120,6 +116,6 @@
 		12 of 12
 	</div>
 </div>
-<script src="index.js"></script>
+<script type="module" src="index.js"></script>
 </body>
 </html>

@@ -1,27 +1,49 @@
+/*!
+ * Avenue FormElement
+ * @version 1.0.2 | Sun Apr 19 2020
+ * @author Denald Hushi
+ * @license GNU
+ */
 class FormElement {
 
 	constructor(data) {
 		this.view = '';
 		this.data = data;
+		this.Config = this.__config();
 	}
+
+	__config = () => {
+		const data = {
+			'type': 'type',
+			'name': 'name',
+			'input': 'input',
+			'id': 'id',
+			'defaultvalue': 'defaultvalue',
+			'placeholder': 'placeholder',
+			'classes': 'classes',
+			'function': 'function',
+			'attributes': 'attributes',
+		};
+		return data;
+	};
 
 	__parseObject() {
 		var Input = [];
 		var size = Object.keys(this.data).length;
 		for (var i = 0; i < size; i++) {
 			if(this.data.type == 'radio' || this.data.type == 'checkbox') {
-				Input['type'] = this.data.type;
-				Input['name'] = this.data.name;
-				Input['input'] = this.data.input;
+				Input[this.Config.type] = this.data.type;
+				Input[this.Config.name] = this.data.name;
+				Input[this.Config.input] = this.data.input;
 			} else {
-				Input['type'] = this.data.type;
-				Input['name'] = this.data.name;
-				Input['id'] = this.data.id;
-				Input['defaultvalue'] = this.data.defaultvalue;
-				Input['placeholder'] = this.data.placeholder;
-				Input['classes'] = this.data.classes;
-				Input['function'] = this.data.function;
-				Input['attributes'] = this.data.attributes;
+				Input[this.Config.type] = this.data.type;
+				Input[this.Config.name] = this.data.name;
+				Input[this.Config.id] = this.data.id;
+				Input[this.Config.defaultvalue] = this.data.defaultvalue;
+				Input[this.Config.placeholder] = this.data.placeholder;
+				Input[this.Config.classes] = this.data.classes;
+				Input[this.Config.function] = this.data.function;
+				Input[this.Config.attributes] = this.data.attributes;
 			}
 		}
 		return Input;
@@ -156,3 +178,5 @@ class FormElement {
 	};
 
 }
+
+export { FormElement };

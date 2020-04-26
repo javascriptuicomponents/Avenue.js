@@ -1,7 +1,7 @@
 /*!
- * Data Table UI Js
+ * Avenue DataTable
  * @version 1.0.2 | Sun Apr 19 2020
- * @author Avvictech Group
+ * @author Denald Hushi
  * @license GNU
  */
 class DataTable {
@@ -447,3 +447,5 @@ class DataTable {
 		document.getElementById('pagination-'+this.tableid).appendChild(link[i]);
 	};
 }
+
+export { DataTable };

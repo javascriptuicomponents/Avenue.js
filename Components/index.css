@@ -98,14 +98,6 @@ input[type=radio]:checked:after {
     left: 6px;
 }
 
-
-i {
-  border: solid gray;
-  border-width: 0 2px 2px 0;
-  display: inline-block;
-  padding: 2px;
-}
-
 .right {
   float: right;
 }
