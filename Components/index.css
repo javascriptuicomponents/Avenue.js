@@ -10,6 +10,7 @@
 
 body {
   font-family: Poppins-Regular;
+  margin: 0px !important;
 }
 
 input[type=checkbox] {
@@ -116,7 +117,7 @@ i {
 .section {
   clear: both;
   padding: 0px;
-  margin: 0px;
+  margin: 10px;
 }
 
 .col {

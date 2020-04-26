@@ -6,18 +6,23 @@
 	<link rel="stylesheet" type="text/css" href="Components/Forms/forms.css">
 	<link rel="stylesheet" type="text/css" href="Components/Buttons/buttons.css">
 	<link rel="stylesheet" type="text/css" href="Components/DataTable/dataTable.css">
+	<link rel="stylesheet" type="text/css" href="Components/Menu/menu.css">
 	<link rel="icon" href="images/63910722.jpeg" type="image/jpg" sizes="16x16">
 	<script src="Components/DataTable/dataTable.js"></script>
 	<script src="Components/Buttons/buttons.js"></script>
 	<script src="Components/Forms/forms.js"></script>
+	<script src="Components/Menu/menu.js"></script>
 </head>
 <body>
+<div id="nav"></div>
+<div class="section group">
 <h1>Buttons</h1>
 <div id="button"></div>
 <h1>DataTable</h1>
 <div id="divid"></div>
 <h1>Form</h1>
 <div id="inputid"></div>
+</div>
 <h1>GRID</h1>
 <div class="section group">
 	<div class="col group-1" style="background: #d3d3d3">
