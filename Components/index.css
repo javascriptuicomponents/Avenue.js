@@ -188,7 +188,7 @@ i {
     width: 6.866%;
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 600px) {
   .col {  
     margin: 1% 0 1% 0%; 
   }    
