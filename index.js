@@ -23,7 +23,14 @@ var dataMenu = {
 			name: 'menu2',
 			link: 'linkhere2',
 			icon:  false,
-			child: false
+			child: {
+				1: {
+					name: 'menu1',
+					link: 'linkhere1',
+					icon: 'fa fa-search',
+					child: false
+				}
+			}
 		},
 		3: {
 			name: 'menu3',
@@ -33,6 +40,13 @@ var dataMenu = {
 				1: {
 					name: 'menu1',
 					link: 'linkhere1',
+					icon: 'fa fa-search',
+					child: false
+				},
+				2: {
+					name: 'menu2',
+					link: 'linkhere2',
+					icon: 'fa fa-search',
 					child: false
 				}
 			}
@@ -50,7 +64,6 @@ var data = {
 		1: 'button',
 		2: 'button-blue-outline',
 		3: 'button-small',
-		4: 'button-radius',
 	},
 	function: {
 		onclick: 'deleteCheckedRows("tableid")',
@@ -73,6 +86,7 @@ data['classes'][2] = 'button-yellow-outline';
 data['classes'][3] = 'button-medium';
 initButton('newButton', data,'button');
 data['classes'][2] = 'button-green';
+data['function']['onclick'] = 'deleteCheckedRows("tableid1")';
 initButton('newButton', data,'button');
 
 //DataTable

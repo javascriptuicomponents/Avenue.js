@@ -22,13 +22,13 @@
 }
 
 .table-bordered tr:first-child { 
-  background: #6c7ae0; 
+  background: #4254af; 
   color: white;
   border-radius: 5px;
 }
 
 .table-striped tr:first-child { 
-  background: #6c7ae0; 
+  background: #4254af; 
   color: white;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;

@@ -65,10 +65,53 @@ class Menu {
 		var _DIV = document.getElementById(this.view+'-id');
 		var sizeMenu = Object.keys(Menu[this.Config.parents]).length;
 		for(var p in Menu[this.Config.parents]) {
-			var link = document.createElement('a');
-			if (Menu['child']) {
-				//to do
+			if (Menu[this.Config.parents][p].child) {
+				var link = document.createElement('div');
+				link.setAttribute(
+					'class', 'dropdown'
+				);
+				link.setAttribute(
+					'id', 'dropdown-'+p
+				);
+				_DIV.appendChild(link);
+
+				var _NEWDIV = document.getElementById('dropdown-'+p);
+				var button = document.createElement('button');
+				button.innerHTML = 'test';
+				button.setAttribute(
+					'class', 'dropbtn'
+				);
+				_NEWDIV.appendChild(button);
+
+				var insideDIV = document.createElement('div');
+				insideDIV.setAttribute(
+					'class', 'dropdown-content'
+				);
+				insideDIV.setAttribute(
+					'id', 'dropdown-content-'+p
+				);
+				_NEWDIV.appendChild(insideDIV);
+
+				var _NEWINSIDEDIV = document.getElementById('dropdown-content-'+p);
+				var sizeHref = Object.keys(Menu[this.Config.parents][p].child).length;
+				var l = Menu[this.Config.parents][p].child;
+				for (var i = 1; i <= sizeHref; i++) {
+					var href = document.createElement('a');
+					href.innerHTML = l[i].name;
+					if(Menu[this.Config.isSPA]) {
+						href.setAttribute(
+							'href',  '#'+l[i].link
+						);
+					} else {
+						href.setAttribute(
+							'href',  l[i].link
+						);						
+					}
+					_NEWINSIDEDIV.appendChild(href);
+				}
+
 			} else {
+				var link = document.createElement('a');
 				if(Menu[this.Config.isSPA]) {
 					link.setAttribute(
 						this.Config.href, 
@@ -80,13 +123,13 @@ class Menu {
 						Menu[this.Config.parents][p].link
 					);
 				}
+				if(Menu[this.Config.parents][p].icon) {
+					link.innerHTML = '<i class="'+Menu[this.Config.parents][p].icon+'"></i> ' + Menu['parents'][p].name;
+				} else {
+					link.innerHTML = Menu[this.Config.parents][p].name;
+				}
+				_DIV.appendChild(link);		
 			}
-			if(Menu[this.Config.parents][p].icon) {
-				link.innerHTML = '<i class="'+Menu[this.Config.parents][p].icon+'"></i> ' + Menu['parents'][p].name;
-			} else {
-				link.innerHTML = Menu[this.Config.parents][p].name;
-			}
-			_DIV.appendChild(link);			
 		}
 		var handleMenu = document.createElement('a');
 		handleMenu.setAttribute(
@@ -96,7 +139,7 @@ class Menu {
 			this.Config.class, 'icon'
 		);
 		handleMenu.setAttribute(
-			'onclick', this.view+'.__menuHandler()'
+			'onclick', 'menuHandler()'
 		);
 		handleMenu.innerHTML = 'Menu';
 		_DIV.appendChild(handleMenu);

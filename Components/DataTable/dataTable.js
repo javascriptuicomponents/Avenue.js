@@ -132,7 +132,7 @@ class DataTable {
 			);
 			var checkboxCell = row.insertCell(0);
 			checkboxCell.setAttribute(
-				'style', 'max-width: 2%'
+				'style', 'max-width: 4%'
 			);
 			checkboxCell.appendChild(checkbox);
 		}
@@ -205,11 +205,11 @@ class DataTable {
 				singleRow[item].setAttribute('draggable', true);
 				singleRow[item].setAttribute(
 					'ondragstart',
-					type+'.__dragRows(event)'
+					'dragRows(event)'
 				);
 				singleRow[item].setAttribute(
 					'ondragover',
-					type+'.__dragRowsOver(event)'
+					'dragRowsOver(event)'
 				);
 			}
 			var rowsHeight = 'rowsHeight16';
@@ -227,7 +227,7 @@ class DataTable {
 				checkbox.setAttribute('name', 'check-' + tableid);
 				singleCell[0] = singleRow[item].insertCell(0);
 				singleCell[0].setAttribute(
-					'style', 'max-width: 2%'
+					'style', 'max-width: 4%'
 				);
 				singleCell[0].appendChild(checkbox);
 			}
@@ -388,10 +388,7 @@ class DataTable {
 	};
 
 	__nextPage = (page) => {
-		this.__dataRequest('body', page);
-	};
-
-	__previusPage = (page) => {
+		document.getElementById('pagination-'+this.tableid).remove();
 		this.__dataRequest('body', page);
 	};
 
@@ -400,9 +397,6 @@ class DataTable {
 	};
 
 	__paginationElement = (page, size) => {
-		if(page != 1) {
-			document.getElementById('pagination-'+this.tableid).innerHTML = '';
-		}
 		var Table = this.__parseObject();
 		var div = document.createElement('div');
 		div.setAttribute('id', 'pagination-'+this.tableid);

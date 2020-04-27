@@ -16,6 +16,7 @@
 <div id="button"></div>
 <h1>DataTable</h1>
 <div id="divid"></div>
+<div id="divid1"></div>
 <h1>Form</h1>
 <div id="inputid"></div>
 </div>

@@ -8,6 +8,7 @@
   text-transform: uppercase;
   display: inline-block;
   transition: all 0.3s ease 0s;
+  cursor: pointer;
 }
 
 .button:hover {
@@ -36,19 +37,19 @@
 }
 
 .button-blue {
-  background-color: #6c7ae0;
+  background-color: #4254af;
   color: white;
 }
 
 .button-blue-outline {
   background-color: white;
-  border: 2px solid #6c7ae0;
+  border: 2px solid #4254af;
   color: black;
 }
 
 .button-blue:hover {
   color: white;
-  background-color: #6c7ae0;
+  background-color: #4254af;
 }
 
 .button-red {

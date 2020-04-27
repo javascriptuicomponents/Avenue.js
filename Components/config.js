@@ -10,6 +10,9 @@ import { Button } from './Buttons/buttons.js';
 export function initMenu(instance, data, view) {
 	instance = new Menu(data);
 	instance.__initMenu(view);
+	window.menuHandler = function menuHandler() {
+	     instance.__menuHandler();
+	}
 };
 
 /*
@@ -53,5 +56,11 @@ export function initTable(instance, data, view, tableid) {
 	}
 	window.sortTable = function sortTable(n, s) {
 	    instance.__sortTable(n, s);
+	}
+	window.dragRows = function dragRows(event) {
+	    instance.__dragRows(event);
+	}
+	window.dragRowsOver = function dragRowsOver(event) {
+	    instance.__dragRowsOver(event);
 	}
 };
